@@ -17,7 +17,7 @@ setup(
     use_scm_version={
         "write_to": "test_pypi_release/__version__.py",
         "version_scheme": "guess-next-dev",
-        "local_scheme": "node-and-date"
+        "local_scheme": "no-local-version"
     },
     author="Tran Duc Trung B",
     author_email="tran.duc.trung-b@gmail.com",
