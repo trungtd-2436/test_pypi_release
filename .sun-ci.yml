@@ -1,0 +1,48 @@
+stages:
+- Check source code 🔎
+- Release 🔖
+
+jobs:
+- name: Check code format with flake8
+  stage: Check source code 🔎
+  image: python:3.6
+  script:
+  - pip3 install flake8==3.9.2
+  - flake8 test_pypi_release
+
+- name: Lint and Test with Tox
+  stage: Check source code 🔎
+  image: python:3.6
+  script:
+  - pip3 install tox opencv-python-headless
+  - tox
+  coverage:
+    type: cobertura
+    path: coverage.xml
+  artifacts:
+    name: coverage
+    paths:
+      - htmlcov
+    expires_in: 3 days
+  cache:
+  - key:
+      files:
+      - tox.ini
+      - setup.py
+    paths:
+    - .tox
+  except:
+    messages:
+      - '/\[ci skip ci\]/'
+
+- name: Check Typing with mypy
+  stage: Check source code 🔎
+  image: python:3
+  script:
+    - pip3 install mypy types-setuptools opencv-python-headless
+    - python3 setup.py develop
+    - mypy test_pypi_release --install-types  --ignore-missing-imports
+  allow_failure: true
+  except:
+    messages:
+      - '/\[ci skip ci\]/'
