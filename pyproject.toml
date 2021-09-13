@@ -3,6 +3,3 @@
 # https://pip.pypa.io/en/stable/reference/pip/#pep-517-and-518-support
 requires = ["setuptools>=42", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
-
-[tool.setuptools_scm]
-write_to = "test_pypi_release/__version__.py"

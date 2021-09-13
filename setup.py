@@ -14,7 +14,11 @@ with open("requirements.txt") as f:
 
 setup(
     name="test_pypi_release",
-    use_scm_version=True,
+    use_scm_version={
+        "write_to": "test_pypi_release/__version__.py",
+        "version_scheme": "guess-next-dev",
+        "local_scheme": "node-and-date"
+    },
     author="Tran Duc Trung B",
     author_email="tran.duc.trung-b@gmail.com",
     setup_requires=["setuptools_scm"],
@@ -29,7 +33,5 @@ setup(
     python_requires=">=3.6",
     install_requires=requirements,
     package_dir={"": "."},
-    packages=find_namespace_packages(
-        include=["test_pypi_release","MANIFEST.in"]
-    ),
+    packages=find_namespace_packages(include=["test_pypi_release", "MANIFEST.in"]),
 )
